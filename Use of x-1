@@ -1,0 +1,9 @@
+It flip the first set bit from right and all the bit on its right.
+
+
+
+1. When we want to retrive No. of set bit ->  keep doing (x & x-1)
+2. When we want to get last set bit -> x ^ (x-1) means all value from left of last set bit will get clear , and calculate its size.
+
+
+ 
