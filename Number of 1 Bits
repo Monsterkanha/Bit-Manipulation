@@ -1,0 +1,44 @@
+Brute Force, loop 32 times and each time check if it is set or not.
+
+int cnt = 0;
+for(int i = 0 ; i < 32; i++){
+    if(A & (1 << i)){
+        cnt++;
+    }
+}
+return cnt;
+
+Better :- 
+Fact - x & (x-1) 
+10101010001100
+x-1 is first bit from right which is set and make it unset and all right to it to set.
+10101010001011
+and if we and this with our original that set bit disapper and number of times this loop run is our answer.
+That's why we check if(x &( x-1)) is zero for one time only, means only 1 set bit hence power of 2; 
+
+
+This special solution uses a trick which is normally used in bit manipulations.
+Notice what x - 1 does to bit representation of x.
+x - 1 would find the first set bit from the end, and then set it to 0, and set all the bits following it.
+
+Which means if x = 10101001010100
+                              ^
+                              |
+                              |
+                              |
+
+                       First set bit from the end
+Then x - 1 becomes 10101001010(011)
+
+All other bits in x - 1 remain unaffected.
+This means that if we do (x & (x - 1)), it would just unset the last set bit in x (which is why x&(x-1) is 0 for powers of 2).
+
+
+int Solution::numSetBits(unsigned int A) {
+    int cnt = 0;
+    while(A != 0){
+        A = A & (A-1);
+        cnt++;
+    }
+    return cnt;
+}
