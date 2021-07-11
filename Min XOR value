@@ -1,0 +1,40 @@
+Lemma :- After sorting, The minimum value always find in consecutive.
+
+Let’s suppose that the answer is not X[i] XOR X[i+1], but A XOR B and there exists C in the array such as A <= C <= B.
+
+Next is the proof that either A XOR C or C XOR B are smaller than A XOR B.
+
+Let A[i] = 0/1 be the i-th bit in the binary representation of A
+Let B[i] = 0/1 be the i-th bit in the binary representation of B
+Let C[i] = 0/1 be the i-th bit in the binary representation of C
+
+This is with the assumption that all of A, B and C are padded with 0 on the left until they all have the same length
+
+
+Now, i is the left most bit which A[i] differs with B[i]
+
+
+so 
+a                c                      b
+
+                Now
+                c[i] could be
+                / \
+               0   1
+   
+  0 ^ 0 = 0
+  1 ^0 = 1;
+  0 ^ 1 = 1
+  1 ^ 1 = 0;
+   
+  if c[i] is zero means a xor c is smaller since a[i] = 0 , b[i] = 1;
+  if c[i] is one means  b xor c is smaller since, a[i] = 0 , b[i] = 1;
+  
+  int Solution::findMinXor(vector<int> &A) {
+    sort(A.begin() , A.end());
+    int ans = 1e9;
+    for(int i = 0 ; i < A.size()-1 ; i++){
+        ans = min(ans, A[i+1]^A[i]);
+    }
+    return ans;
+}
