@@ -1,0 +1,41 @@
+Suppose, I want to count all set bits in 1 to 11. Let's try to break into highest power of two
+
+Here it will break to 8 + 3
+Now we know total set bits in all no. till power of two .
+at every index = n/2 set bit
+
+so if highest power is 2^x then   total set bits   ((2^x)/2) * x .
+
+
+0000
+0001
+0010
+0011
+0100
+0101
+0110
+0111
+1000
+1001
+1010
+1011
+
+
+const long long MOD = 1000000007;
+long long leftmost(int A){
+    long long x = 0;
+    while( (1 << x) <= A){
+        x++;
+    }
+    return x-1;
+}
+
+int Solution::solve(int n) {
+    if(n == 0) return 0;
+    long long  x = leftmost(n);
+    long long ans = (1 << (x-1))*x ;
+    int curr = n - (1 << x) + 1;
+    int restofit = n - (1 << x);
+
+    return (ans + curr + solve(restofit))%MOD;
+}
